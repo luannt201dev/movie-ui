@@ -6,6 +6,7 @@ export const getMoviesAPI = async (dispatch) => {
     dispatch(movieSlice.actions.getMoviesStart());
     try {
       const res = await request("GET", path.getMovies);
+      console.log("res: ", res)
       dispatch(movieSlice.actions.getMoviesSuccess(res.data));
     } catch (err) {
       dispatch(movieSlice.actions.getMoviesFailure());

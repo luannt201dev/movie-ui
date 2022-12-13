@@ -15,10 +15,12 @@ import {CheckLogin, ProtectedUserRoute, ProtectedAdminRoute} from "./protected"
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/home/Home";
 import HomeAdmin from "../pages/admin/home/HomeAdmin";
-import Watch from "../pages/watch/Watch";
+// import Watch from "../pages/watch/Watch";
 import Register from "../pages/register/Register";
 import Admin from "../pages/admin/Admin";
 import Categories from "../pages/admin/categories/Categories";
+import Detail from "../pages/detail/Detail";
+import Watch from "../pages/watch/Watch";
 
 const router = createBrowserRouter([
   {
@@ -100,13 +102,31 @@ const router = createBrowserRouter([
       </ProtectedUserRoute>
     ),
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/watch/*",
-        element: <Watch />,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "/watch/*",
+    //     element: <Watch />,
+    //   },
+    // ],
   },
+  {
+    path: "/watch/*",
+    element: (
+      // <ProtectedUserRoute>
+        <Watch />
+      // </ProtectedUserRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/detail/*",
+    element: (
+      // <ProtectedUserRoute>
+        <Detail />
+      // </ProtectedUserRoute>
+    ),
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 export default router;

@@ -14,7 +14,7 @@ const ValidateEmail = (input) => {
 
 const ValidateMustNotEmpty = (input) => {
     input = input ? input : ''
-    console.log('value: ', input)
+    // console.log('value: ', input)
     if (input.trim() !== '') {
         return true
     }

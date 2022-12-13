@@ -50,10 +50,11 @@ export const loginApi = async (user, dispatch) => {
 	}
 	try {
 		const res = await request("POST", path.login, { body: user });
-		console.log(res)
+		console.log("res: ", res)
 		dispatch(authSlice.actions.loginSuccess(res))
 	}
 	catch (err) {
+		console.log(err)
 		return dispatch(authSlice.actions.registerFailure({message: "Username or password not valid!"}))
 	}
   
