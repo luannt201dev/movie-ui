@@ -1,0 +1,55 @@
+.categories-list {
+    flex: 4;
+    padding: 20px;
+    /* position: relative; */
+}
+
+.categories-list__categories {
+    display: flex;
+    align-items: center;
+}
+
+.categories-list__table {
+    margin-top: 50px;
+}
+
+.categories-add--button {
+    /* width: 80px; */
+    border: none;
+    padding: 5px;
+    margin: 20px 0;
+    background-color: teal;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    
+}
+
+.categories-list__img {
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.categories-list__action {
+    display: flex;
+    align-items: center;
+}
+
+.categories-list__button--edit {
+    border: none;
+    border-radius:10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #3bb077;
+    color: white;
+    margin-right: 10px;
+}
+
+.categories-list__button--remove {
+    color: red;
+    cursor: pointer;
+}

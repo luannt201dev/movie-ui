@@ -1,0 +1,129 @@
+.product {
+    flex: 4;
+    padding: 20px;
+}
+
+.product__title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product--title {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.product-top {
+    display: flex;
+}
+
+.product__left, .product__right {
+    flex: 1; 
+    padding: 20px;
+    -webkit-box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75); 
+    margin-right: 20px;
+}
+
+.product__info-top {
+    font-weight: 600;
+
+}
+
+.product-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.product-name {
+    margin-left: 10px;
+}
+
+.product__info-bottom {
+    margin-top: 10px;
+}
+
+.product__info-item {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product__info-key {
+    margin-right: 20px;
+}
+
+.product__info-value {
+    color: #555;
+}
+
+.product-bottom {
+    flex: 1; 
+    padding: 20px;
+    -webkit-box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75); 
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.product-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product__form-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.product__form-left>label {
+    margin-bottom: 10px;
+    color: gray;
+}
+
+.product__form-left>input {
+    margin-bottom: 10px;
+    border: none;
+    padding: 5px;
+    border-bottom: 1px solid gray;
+}
+
+.product__form-left>select {
+    margin-bottom: 10px;
+}
+
+.product__upload-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.product__upload {
+    display: flex;
+    align-items: center;
+}
+
+.product-upload-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.product-upload--icon {
+    cursor: pointer;
+}
+
+.product__update-button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: darkblue;
+    color:white;
+    font-weight: 600;
+    cursor: pointer;
+}

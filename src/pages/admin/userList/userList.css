@@ -1,0 +1,36 @@
+.user-list {
+    flex: 4;
+}
+
+.user-list__user {
+    display: flex;
+    align-items: center;
+}
+
+.user-list__img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-list__action {
+    display: flex;
+    align-items: center;
+}
+
+.user-list__button--edit {
+    border: none;
+    border-radius:10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #3bb077;
+    color: white;
+    margin-right: 10px;
+}
+
+.user-list__button--remove {
+    color: red;
+    cursor: pointer;
+}
