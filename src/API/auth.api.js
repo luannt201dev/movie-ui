@@ -1,6 +1,6 @@
 import request from "../services/request";
 import { path } from "./apiPath";
-import validate from "../utils/validate";
+import validate from "../utils/validate.util";
 import authSlice from "../store/slice/authSlice";
 
 export const registerApi = async (body, dispatch) => {

@@ -51,9 +51,9 @@ const categorySlice = createSlice({
             state.error = null
         },
         
-        updateMovieSuccess(state, action) {
-            state.categories = state.movies.map(
-                (movie) => movie._id === action.payload._id && action.payload
+        updateCategorySuccess(state, action) {
+            state.categories = state.categories.map(
+                (category) => category.id === action.payload.id ? action.payload : category
               )
               state.isFetching = false
               state.error = null

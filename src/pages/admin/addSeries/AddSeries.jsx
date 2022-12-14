@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import "./addList.css";
-import storage from "../../firebase";
+import "./addSeries.css";
 import { createListAPI } from "../../../API/lists.api";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMoviesAPI} from "../../../API/movies.api"
 
 export default function AddList() {
   const [list, setList] = useState(null);
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const movies = useSelector(state => state.movie.movies)
@@ -30,12 +29,12 @@ export default function AddList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createListAPI(list, dispatch);
-    history.push("/lists")
+    navigate("/series")
   };
 
   return (
     <div className="newProduct">
-      <h1 className="addProductTitle">New List</h1>
+      <h1 className="addProductTitle">New Series</h1>
       <form className="addProductForm">
         <div className="formLeft">
           <div className="addProductItem">

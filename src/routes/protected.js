@@ -12,7 +12,6 @@ export const ProtectedUserRoute = ({ children }) => {
 
 export const ProtectedAdminRoute = ({ children }) => {
   const { isLogin, user } = useSelector((state) => state.auth);
-  console.log(user)
   if (isLogin ) {
     if (user.name === "Administrator") {
       return <>{children}</>;

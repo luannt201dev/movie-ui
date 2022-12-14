@@ -5,8 +5,7 @@ import axiosClient from "./axiosClient";
 const request = (
   method = "GET",
   url = "/",
-  data = { params: {}, body: null, form: null },
-  config = {}
+  data = { params: {}, body: null, form: null }
 ) => {
   return axiosClient({
     url,
@@ -15,8 +14,7 @@ const request = (
     params: data.params,
     paramsSerializer: (params) => {
       return queryString.stringify(params);
-    },
-    config,
+    }
   });
 };
 

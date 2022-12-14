@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { createBrowserRouter } from "react-router-dom";
 
-import AddUser from "../pages/admin/addUser/AddUser";
+// import AddUser from "../pages/admin/addUser/AddUser";
 import UserList from "../pages/admin/userList/UserList";
-import User from "../pages/admin/user/User";
+// import User from "../pages/admin/user/User";
 
 // import Movie from "../pages/admin/movie/Movie";
-// import MovieList from "../pages/admin/movieList/MovieList";
-// import AddMovie from "../pages/admin/addMovie/AddMovie";
+import MovieList from "../pages/admin/movieList/MovieList";
+import AddMovie from "../pages/admin/addMovie/AddMovie";
+
+// import Movie from "../pages/admin/movie/Movie";
+import ListSeries from "../pages/admin/listSeries/ListSeries";
+import AddSeries from "../pages/admin/addSeries/AddSeries";
 
 
 import Login from "../pages/login/Login";
@@ -68,30 +72,30 @@ const router = createBrowserRouter([
       //   path: "user/:userId",
       //   element: <User />
       // },
-      // {
-      //   path: "movies",
-      //   element: <MovieList />
-      // },
+      {
+        path: "movies",
+        element: <MovieList />
+      },
       // {
       //   path: "movie/:id",
       //   element: <Movie />,
       // },
+      {
+        path: "new-movie",
+        element: <AddMovie />
+      },
+      {
+        path: "series",
+        element: <ListSeries />
+      },
       // {
-      //   path: "add-movie",
-      //   element: <AddMovie />
+      //   path: "series/:id",
+      //   element: <Series />,
       // },
-      // {
-      //   path: "lists",
-      //   element: <ProductList />
-      // },
-      // {
-      //   path: "list/:id",
-      //   element: <Product />,
-      // },
-      // {
-      //   path: "add-list",
-      //   element: <AddProduct />
-      // },
+      {
+        path: "new-series",
+        element: <AddSeries />
+      },
     ],
   },
   {
