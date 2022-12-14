@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import "./list.css";
+import "./series.css";
 // import { Publish } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
@@ -10,12 +10,6 @@ export default function List() {
   const id = location.id;
   return (
     <div className="product">
-      <div className="productTitleContainer">
-        <h1 className="productTitle">List</h1>
-        <Link to="/newList">
-          <button className="productAddButton">Create</button>
-        </Link>
-      </div>
       <div className="productTop">
         <div className="productTopRight">
           <div className="productInfoTop">

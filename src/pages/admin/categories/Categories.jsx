@@ -9,7 +9,13 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { createCategoryAPI } from "../../../API/categories.api";
+import {
+  createCategoryAPI,
+  deleteCategoryAPI,
+  getCategoriesAPI,
+  updateCategoryAPI,
+} from "../../../API/categories.api";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -27,41 +33,14 @@ const style = {
 };
 
 const Categories = () => {
-  const [data, setData] = useState(categories);
+  const { categories, error, isFetching } = useSelector(
+    (state) => state.category
+  );
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(null);
-  const handleOpen = () => {
-    setOpen(true)
-    };
-  const handleClose = () => {
-    setEdit(false)
-    setOpen(false)
-};
-  const [loading, setLoading] = useState(false);
-  
-  const {categories} = useSelector(state => state.category)
 
-  useEffect(() => {
-
-  }, [])
-
-  function handleClick() {
-    setLoading(true);
-    if (edit) {
-
-    }
-    else {
-        createCategoryAPI({name: value.name, dispatch})
-    }
-  }
-
-  const handleDelete = (id) => {
-    const newData = data.filter((item) => item.id !== id);
-
-    setData(newData);
-  };
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -70,13 +49,13 @@ const Categories = () => {
       width: 280,
     },
     {
-      field: "updated_at",
+      field: "updatedAt",
       headerName: "Ngày cập nhật gần nhất",
       width: 300,
       editable: true,
     },
     {
-      field: "inserted_at",
+      field: "createdAt",
       headerName: "Ngày khởi tạo",
       width: 300,
       editable: true,
@@ -88,7 +67,12 @@ const Categories = () => {
       renderCell: (params) => {
         return (
           <div className="categories-list__action">
-            <button className="categories-list__button--edit" onClick={() => handleEdit(params.row.id)}>Edit</button>
+            <button
+              className="categories-list__button--edit"
+              onClick={() => handleEdit(params.row.id)}
+            >
+              Edit
+            </button>
 
             <DeleteOutline
               onClick={() => handleDelete(params.row.id)}
@@ -100,13 +84,43 @@ const Categories = () => {
     },
   ];
 
-  const handleEdit = (id) => {
-    const editValue = categories.find(el => el.id = id);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setEdit(false);
+    setOpen(false);
+  };
 
-    setOpen(true)
-    setValue(editValue)
-    setEdit(true)
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
+  function handleClick() {
+    if (edit) {
+      console.log(value)
+      updateCategoryAPI(value.id ,{ name: value.name }, dispatch);
+    } else {
+      createCategoryAPI({ name: value.name }, dispatch);
+    }
+
+    setOpen(false)
   }
+
+  const handleDelete = (id) => {
+    deleteCategoryAPI(id, dispatch)
+  };
+  
+
+  const handleEdit = (id) => {
+    const editValue = categories.find((el) => el.id === id);
+    
+    setEdit(true);
+    setValue(editValue);
+    setOpen(true);
+  };
 
   return (
     <>
@@ -115,7 +129,7 @@ const Categories = () => {
           Thêm danh mục
         </button>
         <DataGrid
-          rows={data}
+          rows={categories}
           columns={columns}
           pageSize={9}
           checkboxSelection
@@ -141,14 +155,14 @@ const Categories = () => {
             required
             id="outlined-required"
             label="Tên danh mục"
-            defaultValue={value}
+            defaultValue={value?.name}
             sx={{ width: "100%", marginBottom: 2 }}
-            onChange={(e) => setValue({name: e.target.value})}
+            onChange={(e) => setValue({id: value.id, name: e.target.value })}
           />
           <LoadingButton
             size="small"
             onClick={handleClick}
-            loading={loading}
+            loading={isFetching}
             loadingPosition="end"
             variant="contained"
           >

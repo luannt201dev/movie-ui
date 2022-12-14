@@ -53,7 +53,7 @@ const categorySlice = createSlice({
         
         updateCategorySuccess(state, action) {
             state.categories = state.categories.map(
-                (category) => category._id === action.payload._id && action.payload
+                (category) => category.id === action.payload.id ? action.payload : category
               )
               state.isFetching = false
               state.error = null

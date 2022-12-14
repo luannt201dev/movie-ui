@@ -32,16 +32,22 @@ const SideBar = () => {
                                 Users
                             </div>
                         </Link>
-                        <Link to="/admin/products">
+                        <Link to="/admin/movies">
                             <div className="side-bar__list--item">
                                 <Storefront className="side-bar__icon"/>
-                                Products
+                                Movies
                             </div>
                         </Link>
                         <Link to="/admin/categories">
                             <div className="side-bar__list--item">
                                 <PermIdentity className="side-bar__icon"/>
                                 Categories
+                            </div>
+                        </Link>
+                        <Link to="/admin/series">
+                            <div className="side-bar__list--item">
+                                <PermIdentity className="side-bar__icon"/>
+                                Series
                             </div>
                         </Link>
                         <div className="side-bar__list--item">

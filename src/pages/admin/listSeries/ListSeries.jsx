@@ -1,4 +1,4 @@
-import "./listList.css";
+import "./listSeries.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -45,8 +45,12 @@ export default function ListList() {
   ];
 
   return (
-    <div className="productList">
+    <div className="product-list">
+      <Link to="/admin/new-series">
+        <button className="product-add--button">Create</button>
+      </Link>
       <DataGrid
+      className="product-list__table"
         rows={lists}
         disableSelectionOnClick
         columns={columns}
