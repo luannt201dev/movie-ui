@@ -115,8 +115,8 @@ instance.interceptors.request.use(
           }
         }
       }
-  
-      return Promise.reject(err);
+      console.log(err)
+      return Promise.reject(err.response.data);
     }
   );
   

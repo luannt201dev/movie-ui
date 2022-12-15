@@ -2,18 +2,40 @@ import { DataGrid } from "@mui/x-data-grid";
 import "./movieList.css";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
-import {  useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import movieSlice from "../../../store/slice/movieSlice";
+import { useEffect } from "react";
+import { LoadingButton } from "@mui/lab";
+import { activeMovieAPI, deleteMovieAPI } from "../../../API/movies.api";
 
 const MovieList = () => {
-  const { movies, isFetching, error} = useSelector(state => state.movie);
+  const { movies, isFetching, error, success} = useSelector(state => state.movie);
   
+  const dispatch = useDispatch()
+
+  console.log(movies)
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+    if (success) {
+      toast.success(success)
+    }
+    dispatch(movieSlice.actions.refreshErrorAndSuccess())
+  },[error, success])
 
   const handleDelete = (id) => {
-    
+    deleteMovieAPI(id, dispatch)
   };
 
+  const handelActiveMovie = (id, status)=> {
+    activeMovieAPI(id, status, dispatch)
+  }
+
   const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "movie",
       headerName: "Movie",
@@ -21,31 +43,62 @@ const MovieList = () => {
       renderCell: (params) => {
         return (
           <div className="product-list__product">
-            <img src={params.row.img} alt="" className="product-list__img" />
+            <img src={params.row.imgSm} alt="" className="product-list__img" />
             {params.row.title}
           </div>
         );
       },
     },
-    {
-      field: "genre",
-      headerName: "Genre",
-      width: 120,
-    },
+    // {
+    //   field: "genre",
+    //   headerName: "Genre",
+    //   width: 120,
+    // },
     {
       field: "year",
       headerName: "Year",
       width: 120,
     },
     {
-      field: "limit",
+      field: "limitAge",
       headerName: "Limit",
       width: 120,
     },
     {
-      field: "isSeries",
-      headerName: "IsSeries",
+      field: "active",
+      headerName: "Status",
       width: 120,
+      renderCell: (params) => {
+        return (
+          <div className="product-list__product">
+            {params.row.active ? "active" : "disable"}
+          </div>
+        );
+      },
+    },
+    {
+      field: "series",
+      headerName: "Series",
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <div className="product-list__product">
+            {params.row.series.title}
+          </div>
+        );
+      },
+    },
+    {
+      field: "categories",
+      headerName: "Categories",
+      width: 300,
+      renderCell: (params) => {
+        return (
+          <div className="product-list__product">
+            {params.row.categories.map(el => el.name).toString()}
+          </div>
+        );
+      },
     },
     {
       field: "action",
@@ -55,14 +108,21 @@ const MovieList = () => {
         return (
           <div className="product-list__action">
             <Link
-              to={{ pathname: "/movies/" + params.row._id, movie: params.row }}
+              to={{ pathname: "/admin/movies/" + params.row.id}}
             >
               <button className="product-list__button--edit">Edit</button>
             </Link>
-            <DeleteOutline
-              onClick={() => handleDelete(params.row._id)}
-              className="product-list__button--remove"
-            />
+            <button className="product-list__button--edit" onClick={() => handelActiveMovie(params.row.id, params.row.active)}>{params.row.active ? "Enable" : "Active"}</button>
+            <LoadingButton
+            size="small"
+            onClick={() => handleDelete(params.row.id)}
+            loading={isFetching}
+            loadingPosition="end"
+            variant="contained"
+            className="add-product-button"
+          >
+            Delete
+          </LoadingButton>
           </div>
         );
       },
@@ -81,7 +141,7 @@ const MovieList = () => {
         pageSize={movies.length}
         checkboxSelection
         disableSelectionOnClick
-        getRowId={(r) => r._id}
+        getRowId={(r) => r.id}
       />
     </div>
   );

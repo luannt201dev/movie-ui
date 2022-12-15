@@ -4,6 +4,7 @@ const initialState = {
     lists: [],
     isFetching: false,
     error: null,
+    success: null
   };
 
 const listSlice = createSlice({
@@ -28,7 +29,6 @@ const listSlice = createSlice({
         },
         
         createListStart(state) {
-            state = {...state}
             state.isFetching = true
             state.error = null 
         },
@@ -37,51 +37,53 @@ const listSlice = createSlice({
             state.lists = [...state.lists, action.payload]
             state.isFetching = false
             state.error = null
+            state.success = "Tạo series mới thành công!"
         },
         
         createListFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },
         
         updateListStart(state) {
-            state = {...state}
             state.isFetching = true
             state.error = null
         },
         
         updateListSuccess(state, action) {
             state.lists = state.lists.map(
-                (movie) => movie._id === action.payload._id && action.payload
+                (movie) => movie.id === action.payload.id && action.payload
               )
               state.isFetching = false
               state.error = null
+            state.success = "Cập nhật series thành công!"
         },
         
         updateListFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },
         
         deleteListStart(state) {
-                state = {...state}
                 state.isFetching = true
                 state.error = null
         },
         
         deleteListSuccess(state, action) {
-            state.lists = state.lists.filter((movie) => movie._id !== action.payload)
+            state.lists = state.lists.filter((movie) => movie.id !== action.payload)
             state.isFetching = false
+            state.success = "Xoá series thành công!"
             state.error = null
         },
         
         deleteListFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },
+        refreshErrorAndSuccess(state) {
+            state.error = null
+            state.success = null
+        }
     }
   })
   

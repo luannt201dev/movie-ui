@@ -4,6 +4,7 @@ const initialState = {
     categories: [],
     isFetching: false,
     error: null,
+    success: null
   };
 
 const categorySlice = createSlice({
@@ -28,7 +29,6 @@ const categorySlice = createSlice({
         },
         
         createCategoryStart(state) {
-            state = {...state}
             state.isFetching = true
             state.error = null 
         },
@@ -37,16 +37,15 @@ const categorySlice = createSlice({
             state.categories = [...state.categories, action.payload]
             state.isFetching = false
             state.error = null
+            state.success = "Tạo thành công!"
         },
         
         createCategoryFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },
         
         updateCategoryStart(state) {
-            state = {...state}
             state.isFetching = true
             state.error = null
         },
@@ -57,28 +56,27 @@ const categorySlice = createSlice({
               )
               state.isFetching = false
               state.error = null
+              state.success = "Cập nhật thành công!"
         },
         
         updateCategoryFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },
         
         deleteCategoryStart(state) {
-                state = {...state}
                 state.isFetching = true
                 state.error = null
         },
         
         deleteCategorySuccess(state, action) {
-            state.categories = state.categories.filter((category) => category._id !== action.payload)
+            state.categories = state.categories.filter((category) => category.id !== action.payload)
             state.isFetching = false
             state.error = null
+            state.success = "Xoá thành công!"
         },
         
         deleteCategoryFailure(state, action) {
-            state = {...state}
             state.isFetching = false
             state.error = action.payload.error_message
         },

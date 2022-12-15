@@ -1,10 +1,31 @@
 import './movie.css';
 import { Publish } from '@mui/icons-material';
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import movieSlice from '../../../store/slice/movieSlice';
 
 const Product = () => {
     const location = useLocation();
-    const movie = location.movie;
+    const {lists} = useSelector((state) => state.list);
+    const {movies, success, error} = useSelector((state) => state.movie);
+  const categories = useSelector((state) => state.category.categories);
+  const id = location.pathname.split("/")[3];
+  const movie = movies.find((movie) => movie.id === Number(id))
+  const [updateMovie, setUpdateMovie] = useState(movie)
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (success) {
+      toast.success(success)
+    }
+    dispatch(movieSlice.actions.refreshErrorAndSuccess())
+  }, [error, success]);
+
+  const dispatch = useDispatch()
     return (
         <div className="product">
              <div className="product__title-container">

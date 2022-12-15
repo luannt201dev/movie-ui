@@ -6,10 +6,8 @@ export const getMoviesAPI = async (dispatch) => {
     dispatch(movieSlice.actions.getMoviesStart());
     try {
       const res = await request("GET", path.getMovies);
-      console.log(res)
       dispatch(movieSlice.actions.getMoviesSuccess(res));
     } catch (err) {
-      console.log(err)
       dispatch(movieSlice.actions.getMoviesFailure());
     }
   };
@@ -22,8 +20,7 @@ export const getMoviesAPI = async (dispatch) => {
       console.log(res)
       dispatch(movieSlice.actions.createMovieSuccess(res));
     } catch (err) {
-      console.log(err)
-      dispatch(movieSlice.actions.createMovieFailure());
+      dispatch(movieSlice.actions.createMovieFailure({error_message: err.message}));
     }
   };
 
@@ -34,7 +31,17 @@ export const getMoviesAPI = async (dispatch) => {
       const res = await request("PUT", path.updateMovie(id), {body: movie});
       dispatch(movieSlice.actions.updateMovieSuccess(res));
     } catch (err) {
-      dispatch(movieSlice.actions.updateMovieFailure());
+      dispatch(movieSlice.actions.updateMovieFailure({error_message: err.message}));
+    }
+  };
+
+  export const activeMovieAPI = async (id, status, dispatch) => {
+    dispatch(movieSlice.actions.updateMovieStart());
+    try {
+      const res = await request("PUT", path.activeMovie(id, status));
+      dispatch(movieSlice.actions.updateMovieSuccess(res));
+    } catch (err) {
+      dispatch(movieSlice.actions.updateMovieFailure({error_message: err.message}));
     }
   };
   
@@ -45,6 +52,6 @@ export const getMoviesAPI = async (dispatch) => {
       await request("DELETE", path.deleteMovie(id));
       dispatch(movieSlice.actions.deleteMovieSuccess(id));
     } catch (err) {
-      dispatch(movieSlice.actions.deleteMovieFailure());
+      dispatch(movieSlice.actions.deleteMovieFailure({error_message: err.message}));
     }
   };

@@ -12,7 +12,6 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import {
   createCategoryAPI,
   deleteCategoryAPI,
-  getCategoriesAPI,
   updateCategoryAPI,
 } from "../../../API/categories.api";
 import { toast } from "react-toastify";
@@ -33,7 +32,7 @@ const style = {
 };
 
 const Categories = () => {
-  const { categories, error, isFetching } = useSelector(
+  const { categories, error, isFetching, success } = useSelector(
     (state) => state.category
   );
   const dispatch = useDispatch();
@@ -99,8 +98,8 @@ const Categories = () => {
   }, [error]);
 
   function handleClick() {
+    console.log(value)
     if (edit) {
-      console.log(value)
       updateCategoryAPI(value.id ,{ name: value.name }, dispatch);
     } else {
       createCategoryAPI({ name: value.name }, dispatch);
@@ -157,7 +156,7 @@ const Categories = () => {
             label="Tên danh mục"
             defaultValue={value?.name}
             sx={{ width: "100%", marginBottom: 2 }}
-            onChange={(e) => setValue({id: value.id, name: e.target.value })}
+            onChange={(e) => {edit ? setValue({id: value.id, name: e.target.value }): setValue({name: e.target.value })}}
           />
           <LoadingButton
             size="small"

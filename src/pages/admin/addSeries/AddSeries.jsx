@@ -3,33 +3,49 @@ import "./addSeries.css";
 import { createListAPI } from "../../../API/lists.api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMoviesAPI} from "../../../API/movies.api"
+
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { toast } from "react-toastify";
+import listSlice from "../../../store/slice/listSlice";
 
 export default function AddList() {
   const [list, setList] = useState(null);
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
-  const movies = useSelector(state => state.movie.movies)
+  const {error, success} = useSelector(state => state.list)
+  const categories = useSelector(state => state.category.categories)
 
   useEffect(() => {
-    getMoviesAPI(dispatch);
-  }, [dispatch]);
+    if (error) {
+      toast.error(error)
+    }
+    if (success) {
+      toast.success(success)
+    }
+    dispatch(listSlice.actions.refreshErrorAndSuccess())
+  },[error, success])
 
   const handleChange = (e) => {
     const value = e.target.value;
     setList({ ...list, [e.target.name]: value });
   };
 
-  const handleSelect = (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setList({ ...list, [e.target.name]: value });
-  };
+  const handleAutoCompleteChange = (e, value) => {
+		setList({...list, categories: value.map(el=>el.id)})
+	}
+
+  // const handleSelect = (e) => {
+  //   let value = Array.from(e.target.selectedOptions, (option) => option.value);
+  //   setList({ ...list, [e.target.name]: value });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(list)
     createListAPI(list, dispatch);
-    navigate("/series")
+    // navigate("/admin/series")
   };
 
   return (
@@ -47,13 +63,21 @@ export default function AddList() {
             />
           </div>
           <div className="addProductItem">
-            <label>Genre</label>
-            <input
-              type="text"
-              placeholder="action"
-              name="genre"
-              onChange={handleChange}
-            />
+            <label>Categories</label>
+            <Autocomplete
+            multiple
+            id="tags-standard"
+            options={categories}
+            getOptionLabel={(option) => option.name}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                placeholder="Chọn danh mục"
+              />
+            )}
+						onChange={handleAutoCompleteChange}
+          />
           </div>
           <div className="addProductItem">
             <label>Type</label>
@@ -63,8 +87,11 @@ export default function AddList() {
               <option value="series">Series</option>
             </select>
           </div>
+          <button className="addProductButton" onClick={handleSubmit}>
+          Create
+        </button>
         </div>
-        <div className="formRight">
+        {/* <div className="formRight">
           <div className="addProductItem">
             <label>Content</label>
             <select
@@ -80,10 +107,8 @@ export default function AddList() {
               ))}
             </select>
           </div>
-        </div>
-        <button className="addProductButton" onClick={handleSubmit}>
-          Create
-        </button>
+        </div> */}
+        
       </form>
     </div>
   );

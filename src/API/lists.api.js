@@ -6,9 +6,9 @@ export const getListsAPI = async (dispatch) => {
     dispatch(listSlice.actions.getListsStart());
     try {
       const res = await request("GET", path.getLists);
-      dispatch(listSlice.actions.getListsSuccess(res.data));
+      // console.log("get lists", res)
+      dispatch(listSlice.actions.getListsSuccess(res));
     } catch (err) {
-        console.log(err)
       dispatch(listSlice.actions.getListsFailure({error_message: err}));
     }
   };
@@ -17,10 +17,23 @@ export const getListsAPI = async (dispatch) => {
   export const createListAPI = async (list, dispatch) => {
     dispatch(listSlice.actions.createListStart());
     try {
-      const res = await request("POST", path.postList, {body: list});
-      dispatch(listSlice.actions.createListSuccess(res.data));
+      const res = await request("POST", path.createList, {body: list});
+      console.log("create lists",res)
+      dispatch(listSlice.actions.createListSuccess(res));
     } catch (err) {
-      dispatch(listSlice.actions.createListFailure());
+      dispatch(listSlice.actions.createListFailure({error_message: err.message}));
+    }
+  };
+
+   //update
+   export const updateListAPI = async (id, list, dispatch) => {
+    dispatch(listSlice.actions.updateListStart());
+    try {
+      const res = await request("PUT", path.updateList(id), {body: list});
+      console.log("update lists",res)
+      dispatch(listSlice.actions.updateListSuccess(res));
+    } catch (err) {
+      dispatch(listSlice.actions.updateListFailure({error_message: err.message}));
     }
   };
   
@@ -28,9 +41,11 @@ export const getListsAPI = async (dispatch) => {
   export const deleteListAPI = async (id, dispatch) => {
     dispatch(listSlice.actions.deleteListStart());
     try {
-      await request("DELETE" , path.deleteList(id));
+      const res = await request("DELETE" , path.deleteList(id));
+      console.log(res)
       dispatch(listSlice.actions.deleteListSuccess(id));
     } catch (err) {
-      dispatch(listSlice.actions.deleteListFailure());
+      console.log(err)
+      dispatch(listSlice.actions.deleteListFailure({error_message: err.message}));
     }
   };

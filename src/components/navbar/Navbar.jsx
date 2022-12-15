@@ -1,10 +1,11 @@
 import { ArrowDropDown, Notifications, Search } from "@mui/icons-material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./navbar.scss";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const auth = useSelector(state => state.auth)
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
@@ -25,10 +26,10 @@ const Navbar = () => {
         </div>
         <div className="right">
           <Search className="icon" />
-          <span>KID</span>
+          <span>{auth.user.name}</span>
           <Notifications className="icon" />
           <img
-            src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            src={auth.user.avatar}
             alt=""
           />
           <div className="profile">

@@ -217,19 +217,19 @@ export const categories = [
   {
     id: 1,
     name: "Hành động",
-    updated_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
-    inserted_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    updatedAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    createdAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
   },
   {
     id: 2,
     name: "Hài hước",
-    updated_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
-    inserted_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    updatedAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    createdAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
   },
   {
     id: 3,
     name: "Lãng mạn",
-    updated_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
-    inserted_at: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    updatedAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
+    createdAt: moment("2022-12-12").format('MMMM Do YYYY, h:mm:ss a'),
   }
 ]

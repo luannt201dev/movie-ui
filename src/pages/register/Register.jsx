@@ -42,8 +42,12 @@ export default function Register() {
     setName(nameRef.current.value);
     setPassword(passwordRef.current.value);
 
-
-   await registerApi({ username, password, email, name }, dispatch);
+   await registerApi({ 
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+      email, 
+      name: nameRef.current.value 
+    }, dispatch);
      
   };
   return (

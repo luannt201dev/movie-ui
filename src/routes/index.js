@@ -9,7 +9,7 @@ import UserList from "../pages/admin/userList/UserList";
 import MovieList from "../pages/admin/movieList/MovieList";
 import AddMovie from "../pages/admin/addMovie/AddMovie";
 
-// import Movie from "../pages/admin/movie/Movie";
+import Series from "../pages/admin/series/Series";
 import ListSeries from "../pages/admin/listSeries/ListSeries";
 import AddSeries from "../pages/admin/addSeries/AddSeries";
 
@@ -19,10 +19,12 @@ import {CheckLogin, ProtectedUserRoute, ProtectedAdminRoute} from "./protected"
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/home/Home";
 import HomeAdmin from "../pages/admin/home/HomeAdmin";
-import Watch from "../pages/watch/Watch";
+// import Watch from "../pages/watch/Watch";
 import Register from "../pages/register/Register";
 import Admin from "../pages/admin/Admin";
 import Categories from "../pages/admin/categories/Categories";
+import Detail from "../pages/detail/Detail";
+import Watch from "../pages/watch/Watch";
 
 const router = createBrowserRouter([
   {
@@ -86,10 +88,10 @@ const router = createBrowserRouter([
         path: "series",
         element: <ListSeries />
       },
-      // {
-      //   path: "series/:id",
-      //   element: <Series />,
-      // },
+      {
+        path: "series/:id",
+        element: <Series />,
+      },
       {
         path: "new-series",
         element: <AddSeries />
@@ -104,13 +106,31 @@ const router = createBrowserRouter([
       </ProtectedUserRoute>
     ),
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/watch/*",
-        element: <Watch />,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "/watch/*",
+    //     element: <Watch />,
+    //   },
+    // ],
   },
+  {
+    path: "/watch/*",
+    element: (
+      // <ProtectedUserRoute>
+        <Watch />
+      // </ProtectedUserRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/detail/*",
+    element: (
+      // <ProtectedUserRoute>
+        <Detail />
+      // </ProtectedUserRoute>
+    ),
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 export default router;
